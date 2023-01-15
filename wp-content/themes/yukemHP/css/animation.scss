@@ -1,0 +1,318 @@
+// ■■■■■■■■     ■ 
+// ■      ■    ■■ 
+// ■      ■    ■  
+// ■      ■■   ■  
+// ■■■■■■  ■  ■■  
+// ■       ■  ■   
+// ■       ■■ ■   
+// ■        ■■    
+// ■        ■■        
+// TOP-scroll【PC】
+.scrolldown1 {
+  position: absolute;
+  left: 24px;
+  bottom: 55%;
+  span {
+    // 縦書き
+    writing-mode: vertical-rl;
+    //トラッキング
+    font-size: 1.5rem;
+    letter-spacing: 0.05em;
+    // scrollの後線
+    &:after {
+      content: "";
+      position: absolute;
+      bottom: -300px;
+      right: 12px;
+      width: 1px;
+      height: 350px;
+      background: black;
+      animation: pathmove 1.8s ease-in-out infinite;
+      @keyframes pathmove {
+        0% {
+          height: 0;
+          bottom: -350px;
+          opacity: 0;
+        }
+        50% {
+          height: 0;
+          opacity: 1;
+        }
+        100% {
+          height: 350;
+          top: 50px;
+          opacity: 0;
+        }
+      }
+    }
+  }
+}
+// TOP-scroll【SP】
+@media screen and (max-width: 768px) {
+  .scrolldown1 {
+    position: absolute;
+    left: 15px;
+    bottom: 50%;
+  }
+}
+// ローディング画面ロゴ【PC】
+#splash {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  z-index: 999;
+  background: #f2f2f2;
+  text-align: center;
+  color: #fff;
+  svg {
+    width: 1180px;
+    height: 60px;
+  }
+}
+#splash_logo {
+  width: 1090px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+// ローディング画面ロゴ【SP】
+@media screen and (max-width: 768px) {
+  #splash {
+    /*fixedで全面に固定*/
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    z-index: 999;
+    background: #f2f2f2;
+    text-align: center;
+    color: #fff;
+    svg {
+      width: 283px;
+      height: 61px;
+    }
+  }
+  #splash_logo {
+    width: 283px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+}
+//ロゴアニメーション内の指定
+//アニメーション前
+#mask path {
+  fill-opacity: 0; /*最初は透過0で見えない状態*/
+  transition: fill-opacity 0.5s; /*カラーがつく際のアニメーション0.5秒で変化*/
+  fill: white; /*塗りがない状態*/
+  stroke: #333; /*線の色*/
+}
+//アニメーション後に.doneというクラス名がで付与された時の指定
+#mask.done path {
+  fill: #f2f2f2; /*塗りの色*/
+  fill-opacity: 1; /*透過1で見える状態*/
+  stroke: white; /*線の色なし*/
+  transition: all 0.5s;
+}
+// ローディング画面の流れる背景
+.splashbg {
+  display: none;
+}
+//bodyにappearクラスがついたら出現
+body.appear .splashbg {
+  display: block;
+  content: "";
+  position: fixed;
+  z-index: 999;
+  width: 100%;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  transform: scaleX(0);
+  background-color: #333;
+  animation-name: PageAnime;
+  animation-duration: 1.2s;
+  animation-timing-function: ease-in-out;
+  animation-fill-mode: forwards;
+}
+@keyframes PageAnime {
+  0% {
+    transform-origin: left;
+    transform: scaleX(0);
+  }
+  50% {
+    transform-origin: left;
+    transform: scaleX(1);
+  }
+  50.001% {
+    transform-origin: right;
+  }
+  100% {
+    transform-origin: right;
+    transform: scaleX(0);
+  }
+}
+//画面遷移の後現れるコンテンツ設定
+#contents {
+  opacity: 0; /*はじめは透過0に*/
+}
+//bodyにappearクラスがついたら出現
+body.appear #contents {
+  animation-name: PageAnimeAppear;
+  animation-duration: 1s;
+  animation-delay: 0.8s;
+  animation-fill-mode: forwards;
+  opacity: 0;
+}
+@keyframes PageAnimeAppear {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+//      ■                 
+//     ■■    ■      ■     
+//     ■■    ■      ■     
+//    ■■ ■   ■      ■     
+//    ■  ■   ■      ■     
+//    ■  ■■  ■      ■     
+//   ■■■■■■  ■      ■     
+//   ■    ■  ■      ■     
+//  ■■    ■■ ■      ■     
+//  ■      ■ ■■■■■■ ■■■■■■
+
+//boxのフェードインアニメーション
+.fadeUp {
+  animation-name: fadeUpAnime;
+  animation-duration: 0.5s;
+  animation-fill-mode: forwards;
+  opacity: 0;
+}
+@keyframes fadeUpAnime {
+  from {
+    opacity: 0;
+    transform: translateY(100px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.fadeUpTrigger {
+  opacity: 0;
+}
+.fadeUpTrigger02 {
+  opacity: 0;
+}
+// h1テキストアニメーション
+.bgextend {
+  animation-name: bgextendAnimeBase;
+  animation-duration: 1s;
+  animation-fill-mode: forwards;
+  position: relative;
+  overflow: hidden; /*　はみ出た色要素を隠す　*/
+  opacity: 1;
+}
+@keyframes bgextendAnimeBase {
+  0% {
+    opacity: 1;
+  }
+  1% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+//中の要素
+.bgappear {
+  animation-name: bgextendAnimeSecond;
+  animation-duration: 1s;
+  animation-delay: 0.6s;
+  animation-fill-mode: forwards;
+  opacity: 0;
+}
+@keyframes bgextendAnimeSecond {
+  0% {
+    opacity: 0;
+  }
+  1% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+//左から右
+.bgLRextend::before {
+  animation-name: bgLRextendAnime;
+  animation-duration: 1s;
+  animation-fill-mode: forwards;
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: #0db900; 
+  z-index: 10;
+}
+@keyframes bgLRextendAnime {
+  0% {
+    transform-origin: left;
+    transform: scaleX(0);
+  }
+  50% {
+    transform-origin: left;
+    transform: scaleX(1);
+  }
+  51% {
+    transform-origin: right;
+  }
+  100% {
+    transform-origin: right;
+    transform: scaleX(0);
+  }
+}
+.bgappearTrigger,
+.bgLRextendTrigger {
+  opacity: 0;
+}
+// フローティングアイコンの揺れるアニメーション
+.yureru-j {
+  animation: yureru-j 2s infinite;
+}
+@keyframes yureru-j {
+  0% {
+    transform: translate(0px, 2px);
+  }
+  5% {
+    transform: translate(0px, -2px);
+  }
+  10% {
+    transform: translate(0px, 2px);
+  }
+  15% {
+    transform: translate(0px, -2px);
+  }
+  20% {
+    transform: translate(0px, 2px);
+  }
+  25% {
+    transform: translate(0px, -2px);
+  }
+  30% {
+    transform: translate(0px, 0px);
+  }
+}
+// ホバー時のズームアニメーション
+@mixin zoom {
+  transition: 0.5s;
+  filter: opacity(0.9);
+  &:hover {
+    filter: opacity(1);
+    transform: scale(1.1);
+  }
+}
