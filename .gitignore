@@ -15,5 +15,5 @@ Thumbs.db
 !/wp-content/themes
 /wp-content/themes/*
 !/wp-content/themes/yukemHP
-/wp-content/themes/my-theme/css/.sass-cache/*
+/wp-content/themes/yukemHP/css/.sass-cache/*
 /wp-includes/*
