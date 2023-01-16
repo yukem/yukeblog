@@ -146,7 +146,7 @@
 
 <!-- jQueryライブラリの読み込み-->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/vivus/0.4.4/vivus.min.js"></script>
-<script src="<?php echo get_template_directory_uri(); ?>/js/main.js"></script>
+<script src="<?php echo get_template_directory_uri(); ?>/js/main.min.js"></script>
 <?php wp_footer(); ?>
 </body>
 
